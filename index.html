@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="money.js"></script>
     <title>Currency Converter</title>
 </head>
 
@@ -21,22 +22,22 @@
                 </form>
                 <br>
                 <div id="currencys">
-                    <select id="listPicker">
-                        <option value='1'>EUR</option>
-                        <option value='2'>USD</option>
-                        <option value='3'>POUND</option>
+                    <select id="from">
+                        <option value='EUR'>EUR</option>
+                        <option value='USD'>USD</option>
+                        <option value='POUND'>POUND</option>
                     </select>
                     <h1 id="middleWord">→</h1>
-                    <select id="secondListPicker">
-                        <option value='1'>EUR</option>
-                        <option value='2'>USD</option>
-                        <option value='3'>POUND</option>
+                    <select id="to">
+                        <option value='EUR'>EUR</option>
+                        <option value='USD'>USD</option>
+                        <option value='POUND'>POUND</option>
                     </select>
                 </div>
                 <br>
                 <button onclick="convert()" style="background-color: chartreuse; width: 200px;">Convert</button>
                 <p id="answer"></p>
-                <script src="money.js"></script>
+                <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
             </div>
         </div>
     </div>
