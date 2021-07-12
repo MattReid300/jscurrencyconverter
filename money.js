@@ -1,7 +1,17 @@
+const api = "https://api.exchangerate.host";
 document.addEventListener("DOMContentLoaded", function () {
-  axios.get("https://api.exchangerate.host/latest")
-    .then(response => {
-      console.log(response)
+  const from = document.getElementById("from")
+  const to = document.getElementById("to")
+  axios.get(api + "/symbols")
+    .then(({
+      data
+    }) => {
+      for (const key in data.symbols) {
+        from.innerHTML += `<option value="${key}">${data.symbols[key].description}</option>`
+        to.innerHTML += `<option value="${key}">${data.symbols[key].description}</option>`
+      }
+      from.value = "EUR";
+      to.value = "USD";
     })
 })
 
@@ -10,31 +20,34 @@ function convert() {
   let amountInput = document.getElementById("inputNumber").value;
   let base = document.getElementById("from").value;
   let end = document.getElementById("to").value;
+  let answer = document.getElementById("answer");
 
-  if (base == end) {
+  if (base === end) {
     let result = amountInput;
-    document.getElementById("answer").innerHTML = result
+    answer.innerHTML = result
   } else {
-    try {
-      return axios.get("https://api.exchangerate.host/latest", {
-        params: {
-          base
-        }
-      }).then(resp => {
-        const OPERATORS = {
-          'EURUSD': (a, b) => a * b,
-          'EURGBP': (a, b) => a * b,
-          'USDEUR': (a, b) => a * b,
-          'USDGBP': (a, b) => a * b,
-          'GBPEUR': (a, b) => a * b,
-          'GBPUSD': (a, b) => a * b,
-        }
-        let operand = resp.data.rates[end]
-        let result = OPERATORS[base + end] ? OPERATORS[base + end](amountInput, operand) : amountInput
-        document.getElementById("answer").innerHTML = result.toFixed(4);
-      })
-    } catch (error) {
+    axios.get(api + "/latest", {
+      params: {
+        base
+      }
+    }).then(resp => {
+      let operand = resp.data.rates[end]
+      let result = amountInput * operand;
+      answer.innerHTML = result.toFixed(4);
+
+
+
+      const recent = {
+        name: "From " + base + " to " + end,
+        date: new Date()
+      }
+      localStorage.setItem("Conversion", JSON.stringify(recent))
+      console.log(JSON.stringify(recent));
+      const item = JSON.parse(localStorage.getItem("Conversion"))
+      document.getElementById("recent").innerHTML += `<li>${Object.values(item).join(' ')}</li>`;
+      console.log(JSON.parse(localStorage.getItem("Conversion")))
+    }).catch((error) => {
       console.error(error)
-    }
+    })
   }
 }

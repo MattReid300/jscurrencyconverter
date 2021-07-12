@@ -21,22 +21,17 @@
             </form>
             <br>
             <div id="currencys">
-                <select id="from">
-                    <option value='EUR'>EUR</option>
-                    <option value='USD'>USD</option>
-                    <option value='GBP'>GBP</option>
-                </select>
+                <select id="from"></select>
                 <h1 id="middleWord">→</h1>
-                <select id="to">
-                    <option value='EUR'>EUR</option>
-                    <option value='USD'>USD</option>
-                    <option value='GBP'>GBP</option>
-                </select>
+                <select id="to"></select>
             </div>
             <br>
             <button onclick="convert()" style="background-color: chartreuse; width: 200px;">Convert</button>
             <p id="answer" style="font-size: 35px;"></p>
             <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        </div>
+        <div class="jumbotron" id="jumbo2">
+            <ul id="recent"></ul>
         </div>
     </div>
 
@@ -83,12 +78,26 @@
         background-color: rgba(255, 255, 255, 0.90);
         box-shadow: 0 0 3px 7px white;
     }
-    @media screen and (max-width: 400px) {
-        h1{
+
+    #jumbo2 {
+        margin-top: 300px;
+        width: 50rem;
+        display: table;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    @media screen and (max-width: 700px) {
+        h1 {
             font-size: 25px;
         }
+
         #jumbo {
             margin-top: 100px;
+        }
+
+        #currencys {
+            flex-direction: column;
         }
     }
 </style>
