@@ -31,6 +31,10 @@
             <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         </div>
         <div class="jumbotron" id="jumbo2">
+            <div class="bar">
+                <h3>Recent Log</h3>
+                <button id="clear-btn" onclick="clearAll()">Clear</button>
+            </div>
             <ul id="recent"></ul>
         </div>
     </div>
@@ -80,11 +84,27 @@
     }
 
     #jumbo2 {
-        margin-top: 300px;
+        margin-top: 100px;
         width: 50rem;
         display: table;
         margin-right: auto;
         margin-left: auto;
+    }
+
+    #clear-btn {
+        width: 80px;
+        height: 30px;
+        transition-duration: 0.4s;
+        background-color: yellow;
+    }
+
+    #clear-btn:hover {
+        background-color: white;
+    }
+
+    .bar {
+        display: flex;
+        justify-content: space-between;
     }
 
     @media screen and (max-width: 700px) {

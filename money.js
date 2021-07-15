@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
       from.value = "EUR";
       to.value = "USD";
     })
+  let keys = Object.keys(localStorage);
+  for (let e=0; e < keys.length; e++) {
+    let newer = JSON.parse(localStorage.getItem(keys[e]));
+    document.getElementById("recent").innerHTML += `<li>${Object.values(newer)}</li>`
+  }
 })
 
 function convert() {
@@ -39,15 +44,21 @@ function convert() {
 
       const recent = {
         name: "From " + base + " to " + end,
-        date: new Date()
+        date: new Intl.DateTimeFormat(navigator.language).format(new Date())
       }
-      localStorage.setItem("Conversion", JSON.stringify(recent))
-      console.log(JSON.stringify(recent));
-      const item = JSON.parse(localStorage.getItem("Conversion"))
-      document.getElementById("recent").innerHTML += `<li>${Object.values(item).join(' ')}</li>`;
-      console.log(JSON.parse(localStorage.getItem("Conversion")))
+      let code = Math.floor(Math.random() * 1000)
+      let conversion = "Conversion " + code;
+      localStorage.setItem(conversion, JSON.stringify(recent))
+      const item = JSON.parse(localStorage.getItem(conversion))
+      console.log(item);
+      document.getElementById("recent").innerHTML += `<li>${Object.values(item).join(' on ')}</li>`;
     }).catch((error) => {
       console.error(error)
     })
   }
+}
+
+function clearAll() {
+  window.localStorage.clear();
+  document.getElementById("recent").innerHTML = "";
 }
